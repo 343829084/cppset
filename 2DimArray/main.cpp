@@ -35,7 +35,7 @@ void msetNotBinary(redisContext *c, const vector<string> &vtKey, const vector<st
 "AB"
 */
 
-//use:g++ main.cpp -I. -L/opt/app/msgav6/lib -lhiredis
+//use:g++ main.cpp -I. -L/opt/app/msg6/lib -lhiredis
 void mset1( redisContext *c, const vector<string> &vtKey, const vector<string> & vtVal )
 {
 	if(vtKey.size() != vtVal.size())
