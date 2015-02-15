@@ -25,6 +25,9 @@
 
 #define	MAXLINE	4096			/* max line length */
 
+/* add by colin  2/15/2015 */
+#define ARG_MAX 4096
+
 /*
  * Default file access permissions for new files.
  */

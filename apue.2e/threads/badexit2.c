@@ -10,9 +10,10 @@ err_quit(const char *fmt, ...)
 {
 	va_list		ap;
 
-//	va_start(ap, fmt);
-//	err_doit(0, 0, fmt, ap);
-//	va_end(ap);
+/*  va_start(ap, fmt);
+	err_doit(0, 0, fmt, ap);
+	va_end(ap);
+*/
 	exit(1);
 }
 
@@ -30,7 +31,7 @@ printfoo(const char *s, const struct foo *fp)
 void *
 thr_fn1(struct foo *fo_str)
 {
-	*fo_str = {1, 2, 3, 4};
+	/* *fo_str = {1, 2, 3, 4}; */
 
 	printfoo("thread 1:\n", fo_str);
 	pthread_exit((void *)fo_str);
@@ -39,7 +40,7 @@ thr_fn1(struct foo *fo_str)
 void *
 thr_fn2(void *arg)
 {
-	printf("thread 2: ID is %d\n", pthread_self());
+	printf("thread 2: ID is %d\n", (int)pthread_self());
 	pthread_exit((void *)0);
 }
 

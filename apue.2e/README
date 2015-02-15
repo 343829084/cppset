@@ -40,6 +40,25 @@ May 30, 2005
 6.cd /home/wx/apue.2e
 
    make
+
+7.stropts.h
+如果出现stropts.h缺失的情况，则下载glibc-2.11，解压
+cp ./glibc-2.11/streams/stropts.h /usr/include
+cp ./glibc-2.11/bits/stropts.h /usr/include/bits
+cp ./glibc-2.11/sysdeps/x86_64/bits/xtitypes.h /usr/include/bits
+
+glibc-2.11下载地址：http://ftp.gnu.org/pub/gnu/glibc/glibc-2.11.tar.gz
+(本版本文件中已附上）
+
+8．ARG_MAX
+如果在编译时提示ARG_MAX未定义，可以修改如下:
+在apue.2e/include/apue.h中添加一行：
+#define ARG_MAX 4096
+打开apue.2e/threadctl/getenv1.c 和apue.2e/threadctl/getenv3.c，添加一行：
+#include "apue.h"
+(本版本已修改)
+
+
 7.把生成的apue.2e/lib/libapue.a与apue.2e/include/apue.h拷贝到你编写的源代码目录下。
 
    （注：你可以把libapue.a和apue.h保存在容易找到的文件夹中，以便使用）
