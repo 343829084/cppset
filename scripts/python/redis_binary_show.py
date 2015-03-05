@@ -9,10 +9,21 @@ import subprocess
 import sys
 
 if len(sys.argv) < 2:
-        print 'please input key'
-        exit(0)
-cmd = './redis-cli -p $REDIS_LOCAL_PORT get %s' % sys.argv[1]
+    print 'please input key'
+    exit(0)
+cmdPre = './redis-cli -p $REDIS_LOCAL_PORT '
+cmd = '%s type %s' % (cmdPre,sys.argv[1])
+data = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+types = ''.join(data.stdout.readlines())
+if 'string' in types:
+    cmd = '%s get %s' % (cmdPre,sys.argv[1])
+elif 'set' in types:
+    cmd = '%s smembers %s' % (cmdPre,sys.argv[1])
+else:
+    print 'none'
+    exit(0)
+    
 data = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
 for line in data.stdout.readlines():
-         print ' '.join(line.strip('\n').replace('\x00',' ').split())
+    print ' '.join(line.strip('\n').replace('\x00',' ').split())
 
