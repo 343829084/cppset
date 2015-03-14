@@ -1,0 +1,45 @@
+
+CC = g++
+
+
+# compile & link flags
+CFLAGS = -g
+#LDFLAGS = -lpthread
+
+# target name
+APPNAME = redisTPS
+
+#library include dir
+INCLUDES = -I.
+
+# library link files
+LIBS  = -L/opt/app/lib -lhiredis
+
+###############################################APP INCLUDE DIR & APP OBJECTS DEFINATION#####
+
+APPDIR = $(shell find -type d)
+APPINC = $(APPDIR:%=-I%)
+
+APPCPP = $(shell find ./ -name "*.cpp"|sed 's/[^\ ]*\///')
+APPOBJ = $(APPCPP:%.cpp=%.o)
+
+all:clean $(APPNAME)
+
+$(APPNAME):$(APPOBJ)
+	$(CC) $(CFLAGS) $(LIBS) $(APPOBJ) -o $@
+
+.SUFFIXES:.o .cpp
+
+.cpp.o:
+	$(CC) $(CFLAGS) $(APPINC) $(INCLUDES) -c $^ -o $*.o
+
+.cc.o:
+	$(CC) $(CFLAGS) $(APPINC) $(INCLUDES) -c $^ -o $*.o
+
+.PHONY:clean sync 
+
+clean:
+	rm -rf $(APPNAME)
+
+
+
